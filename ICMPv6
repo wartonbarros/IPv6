@@ -3,6 +3,9 @@ ICMPv6 (Internet Control Message Protocol)
 *É uma versão atualizada do protocolo ICMPv4, para ser utilizada
 em conjunto com o IPV6
 
+*É mais importante para o funcionamento do IPv6 do que o ICMP 
+para o funcionamento do IPv4
+
 *Sua implementação é necessária para todos os nós que se 
 comunicam através do IPV6
 
@@ -25,3 +28,23 @@ portanto firewalls operando na camada de rede, com o IPv6, podem
 bloquear funções extremamente básicas como a descoberta de vizinhos 
 (pelo NDP) e a autoconfiguração
 
+*O ICMPv6 também é usado pelos seguintes protocolos e funcionalidades
+    ºMLD (Multicast Listener Discovery), que opera com o gerenciamento
+    dos grupos multicast
+    
+    ºNDP (Neighbor Discory Protocol), que é responsável por identificar 
+    e conhecer características da vizinhança
+    
+    ºPath MTU Discovery, que trabalha no processo de descoberta do menor
+    MTU em comunicação entre dois nós
+    
+    ºMobility Support, que cuida do gerenciamento de endereços de origem 
+    dos host dinamicamente
+    
+    ºAutoconfiguração Stateless, que permite a aquisição de endereços 
+    globais sem o uso do DHCP
+    
+    
+    
+    
+    
