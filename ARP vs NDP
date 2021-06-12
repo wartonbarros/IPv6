@@ -1,0 +1,20 @@
+No protocolo IPv6 o protocolo de descoberta ARP (Address Resolution Protocol) foi substituído pelo 
+NDP (Neighbor Discovery Protocol), este utiliza as mensagens Neighbor Solicitation, e Neighbor Adevertisement, 
+que mapeiam o endereço físico (MAC), e o endereço lógico (IP).
+
+Este protocolo é iniciado quando uma máquina tenta enviar um pacote cujo endereço de destino é desconhecido.
+
+Basicamente o modo de trabalho do protocolo NDP é:
+
+1º - O nó solicitante envia uma mensagem Neighbor Solicitation (NS) para todos os nós do enlace pertencentes ao grupo 
+Multicast Solicited-Node (ff02::1:ffXX:XXXX) de modo que XX:XXXX são os últimos 24 bits do endereço IPv6 em que está 
+interessado, na mensagem NS, o endereço IPv6 a ser resolvido é informado no campo Target, o campo Source Link-Layer Address, 
+informa ao nó de destino o endereço MAC do nó de origem, poupando o trabalho de fazer a verificação no sentido inverso.
+
+2º - O nó de destino, dono do IPv6 requisitado, ao receber esse pacote, envia uma 
+mensagem Neighbor Advertisement (NA) como resposta diretamente ao nó requisitante. 
+O seu endereço físico será informado no campo Target Link-Layer Address.
+
+3º - A informação de mapeamento de endereços IP e endereços físicos (MAC) é armazenada 
+em uma tabela chamada Neighbor Cache, similar a ARP Table no IPv4, nesta também fica 
+registrado o status de cada destino, informando se o mesmo é alcançavel ou não.
