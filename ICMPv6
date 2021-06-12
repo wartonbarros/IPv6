@@ -1,0 +1,27 @@
+ICMPv6 (Internet Control Message Protocol)
+
+*É uma versão atualizada do protocolo ICMPv4, para ser utilizada
+em conjunto com o IPV6
+
+*Sua implementação é necessária para todos os nós que se 
+comunicam através do IPV6
+
+*serve como base para o NDP
+
+*É responsável por reportar erros no processamento de pacotes, 
+realizar diagnósticos e enviar mensagens sobre características 
+da rede
+
+*Implementou na versão 6 funções que na versão 4 eram de outros
+protocolos, portanto na versão 6 os protocolos ARP, RARP e IGMP
+não existem mais, garantindo mais simplicidade na arquitetura
+
+*No IPv4 os protocolos ARP e RARP operavam nas camadas 2 e 3 
+(enlace e rede sucessivamente).
+seguindo a notação do modelo (agora padrão) ISO/OSI, e 
+principalmente não dependiam de pacote IP. O ICMPv6 é um 
+protocolo de camada 3 (rede), mas é encapsulado em um pacote IP,
+portanto firewalls operando na camada de rede, com o IPv6, podem 
+bloquear funções extremamente básicas como a descoberta de vizinhos 
+(pelo NDP) e a autoconfiguração
+
