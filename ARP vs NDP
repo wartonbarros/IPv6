@@ -18,3 +18,120 @@ O seu endereço físico será informado no campo Target Link-Layer Address.
 3º - A informação de mapeamento de endereços IP e endereços físicos (MAC) é armazenada 
 em uma tabela chamada Neighbor Cache, similar a ARP Table no IPv4, nesta também fica 
 registrado o status de cada destino, informando se o mesmo é alcançavel ou não.
+
+
+
+Campos importantes do Neighbor Solicitation (NS):
+
+Destination (Camada Ethernet):
+Indica o endereço a ser alcançado, quando houver o prefixo 33:33, indicará que 
+trata-se de um Multicast na camada Ethernet
+
+Source (Camada Ethernet):
+A origem é o endereço MAC da interface do dispositivo que enviou a solicitação
+
+Type (Camada Ethernet):
+Indica que a mensagem utiliza IPv6
+
+Next Header (Camada IPv6):
+Indica qual é o próximo cabeçalho
+
+Source (Camada IPv6):
+A origem é o endereço IP da interface diretamente ligada ao enlace em que se 
+faz a requisição 
+
+Destination (Camada IPv6):
+O destino é o endereço Multicast Solicited-Node
+
+Type:
+Indica que a mensagem é do tipo 135 (Neighbor Solicitation)
+
+ICMPv6 Iption (Camada ICMPv6):
+Indica as opções do pacote ICMPv6 >
+  *Source Link-Layer Address
+    ºType
+      Indica o tipo de opção. Neste caso, Source Link-Layer Address.
+    ºLink-Layer Address
+      Indica o endereço MAC da interface de origem da mensagem
+
+
+
+
+Campos importantes do Neighbor Advertisement (NA):
+
+Destination (Camada Ethernet):
+O endereço MAC do nó requisitante que foi obtido por meio da 
+mensagem Neighbor Solicitation (NS) enviada previamente
+
+Source (Camada Ethernet):
+A origem é o endereço MAC da interface do dispositivo que enviou 
+a resposta
+
+Type (Camada Ethernet):
+Indica que a Mensagem utiliza IPv6
+
+Next Header (Camada IPv6):
+Indica qual é o próximo cabeçalho
+
+Source (Camada IPv6):
+A origem é o endereço IP da interface diretamente ligada ao enlace 
+em que a requisição foi recebida 
+
+Destination (Camada IPv6):
+Diferente da mensagem NS, a mensagem NA possui como destino o endereço IPv6 
+global do nó requisitante
+
+Type (Camada ICMPv6):
+Indica que a mensagem é do tipo 136 (Neighbor Advertisement)
+
+Flags (Camada ICMPv6):
+A mensagem NA possui três Flags >
+*indica se quem está enviando é um roteador, nesse caso o valor marcado 
+é 0, pois não é um roteador
+*indica se a mensagem é uma resposta a um NS, nesse caso o valor marcado 
+é 1, pois é uma resposta
+*indica se a informação carregada na mensagem é uma atualização de endereço 
+de algum nó na rede, nesse caso o valor marcado é 1, pois está informando 
+o endereço pela primeira vez
+
+Target Address (Camada ICMPv6)
+Indica o endereço IP associado as informações das Flags
+
+ICMPv6 Option (Camada ICMPv6)
+Indica as opções do pacote ICMPv6 >
+  *Target Link-Layer Address
+    ºType
+      Indica o tipo de opção
+    ºLink-Layer Address
+      Indica o endereço MAC da interface
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
