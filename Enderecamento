@@ -26,6 +26,89 @@ mais bits
 64 bits para o prefixo de rede e 64 bits para o identificador de interface, apenas em links 
 ponto a ponto serão mais comum redes menores /126 ou /127
     
+    ::1 é o endreço de loopback no IPv6
+    
+    No IPv6 os endereços prefixados com fe80::/64 pertencem ao link local
+    
+    O bloco fc00::/7 é usado para redes internas que não tem conexão com a rede mundial mas 
+que precisam de endereços roteáveis (Unique Local Address - ULA), na prática usa-se o bloco 
+fdnn:nnnn:nnnn::/48 onde os Ns representam 40 bits aleatórios. Diferente do IPv4 que usa o NAT
+para rotear endereços ULA, no IPv6 os endereços ULA devem ser usados em redes isoladas da internet, 
+e não em conjunto com o NAT
+    
+    100.64.0.0/10 é a faixa de rede privada para grandes provedores usando o CGNAT na transição 
+para o IPv6    
+    
+    2000::/3 é a faixa reservada para endereços globais, toda máquina que precise acessar a 
+internet precisará de um endereço global    
+    
+    ff00::/8 é a faixa reservada para comunicação multicast, esses endereços são necessários 
+no IPv6 para que a rede funcione, caso o multicast seja bloqueado num firewall de um dispositivo 
+ele não conseguirá mais se comunicar usando IPv6
+    
+    Não há faixa reservada para endereços anycast, qualquer endereço unicast pode ser usado como 
+anycast    
+    
+    
+    
+Representação dos endereços:
+    A representação dos endereços IPv6, é feita dividindo o endereço em oito grupos de 16 bits, 
+    separando-os por ":", escritos com dígitos hexadecimais (0-F)
+    Ex: 2001:0db8:ad1f:25e2:cade:cafe:f0ca:84c1
+    
+    As letras podem ser em minúsculo ou maiúsculo
+    
+Abreviação:
+    Os endereços IPv6 podem ser abreviados omitindo zeros a esquerda ou substituindo blocos seguidos 
+    de zeros por "::"
+    
+    Ex: o endereço 2001:0DB8:0000:0000:130F:0000:0000:140B pode ser escrito como 
+    2001:DB8:0:0:130F::140B ou 2001:DB8::130F:0:0:140B no entanto a abreviação de grupos de zeros só 
+    pode ser feito uma vez no endereço já que caso ocorra mais de uma vez pode causar ambiguidade na 
+    imterpretação do endereço por não sabermos quantos grupos de 16 bits cada um tem, essa abreviação 
+    também pode ser feita no início ou no final do endereço sem problema
+    
+Representação de prefixos de rede:
+    Utiliza a notação CIDR assim como no IPv4, seguindo o padrão "endereço-IPv6/tamanho do prefixo", 
+    onde tamanho do prefixo é o valor decimal que especifica a quantidade de bits contíguos à esquerda 
+    do endereço que compreendem o prefixo
+        ºPrefixo 2001:db8:3003:2::/64
+        ºPrefixo global 2001:db8::/32
+        ºID da sub-rede 3003:2
+        
+        Essa representação possibilita a agregação de forma hierárquica, identificando a topologia da 
+        rede através de parâmetros como a posição geográfica, provedor de acesso, identificação de rede, 
+        divisão da sub-rede etc
+    
+    No IPv6 a representação das URLs (Uniform Resource Locators) agora passam a ser representados entre 
+    colchetes, dessa forma não haverá ambiguidades caso seja necessário indicar o número de uma porta 
+    juntamente com a URL
+    Ex: http://[2001:12ff:0:4::22]/index.html ou http://[2001:12ff:0:4::22]:8080
+    
+Classificação de endereços:
+    No IPv6 são três os tipos de endereços atualmente definidos
+        ºUnicast: este tipo de endereço identifica uma única interface, de modo que um pacote enviado 
+        a um endereço unicast é entregue a uma única interface
+        
+        ºAnycast: Identifica um conjunto de interfaces, um pacote encaminhado a um endereço anycast 
+        é entregue a interface pertencente a este conjunto mais próxima da origem (de acordo com a 
+        distância medida pelos protocolos de roteamento), um endereço anycast é utilizado em comunicações 
+        de um-para-um-de-muitos
+        
+        ºMulticast: também identifica um conjunto de interfaces, entretanto, um pacote enviado a um 
+        endereço multicast é entregue a todas as interfaces associadas a esse endereço, um endereço 
+        multicast é utilizado em comunicações de um-para-muitos
+    
+    Diferente do IPv4, no IPv6 não existe endereço broadcast, responsável por direcionar um pacote 
+    para todos os nós de um mesmo domínio, no IPv6 essa função foi atribuída a tipos específicos de 
+    endereços multicast
+    
+    
+    
+    
+    
+    
+    
     
     
     
