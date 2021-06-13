@@ -10,14 +10,21 @@ decimal, separando os quatro campos com o caractere "."
     No IPv6 os 128 bits são dividios em 8 conjuntos de 16 bits, chamados hexadecatetos, 
 e convertidos para números hexadecimais, separando os 8 campos pelo caractere ":"    
     
+    No IPv6 as as letras podem ser escritam em maiúsculo ou minúsculo
     
+    O endereço poderá ser abreviado omitindo os zeros a esquerda cada hexadecateto
     
+    Grupos contínuos de zeros também podem ser substituídos por ::, porém essa forma de 
+abreviação só pode aparecer uma única vez em cada endereço    
     
+    No IPv6 o prefixo de rede (responsáveis por identificar as redes) possuem 64 bits, e 
+o identificador de interface (ou host) também possui 64 bits, porém podem ser geradas redes 
+maiores gerando prefixos com menos bits, há também exceções que podem gera prefixos com 
+mais bits
     
-    
-    
-    
-    
+    Na maioria das redes usando IPv6 será adotado sempre prefixos /64, assim será reservado 
+64 bits para o prefixo de rede e 64 bits para o identificador de interface, apenas em links 
+ponto a ponto serão mais comum redes menores /126 ou /127
     
     
     
