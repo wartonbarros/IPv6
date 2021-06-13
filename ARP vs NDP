@@ -121,15 +121,28 @@ realização de três funcionalidades:
     ºAddress Autoconfiguration:  trabalha com a autoconfiguração stateless de endereços 
      nas interfaces de um nó
 
-    ºDuplicate Address Detection: utilizado para descobrir se o endereço que se deseja atribuir 
-     a uma interface já está sendo utilizado por um outro nó na rede
+    ºDuplicate Address Detection: utilizado para descobrir se o endereço que se deseja 
+    atribuir a uma interface já está sendo utilizado por um outro nó na rede
 
-
-
-
-
-
-
+*No caso da transmissão de pacotes entre nós, o suporte é dado para a realização de seis 
+funcionalidades:
+    ºRouter Discovery: trabalha com a descoberta de roteadores pertencentes ao enlace
+    
+    ºPrefix Discovery: implementa a descoberta de prefixos de redes do enlace, cuja a 
+    finalidade é decidir para onde os pacotes serão direcionados numa comunicação (se 
+    é para um roteador específico ou direto pra o nó de enlace)
+    
+    ºAddress Resolution: descobre o endereço físico através de um endereço lógico IPv6
+    
+    ºNeighbor Unreachability Detection: permite que os nós descubram se um vizinho é ou 
+    se continua alcançavel, uma vez que problemas podem acontecer tanto nos nós como na 
+    rede
+    
+    ºRedirect: permite ao roteador informar ao nó uma rota melhor ao ser utilizada para 
+    enviar pacotes a determinado destino 
+    
+    ºNext-Hop Determination: algoritmo para mapear um endereço IP de destino em um 
+    endereço IP de um vizinho para onde o tráfego deve ser enviado
 
 
 
@@ -144,15 +157,56 @@ a realização de suas tarefas, para isso foram reservadas 5 tipos de mensagens
  Neighbor Advertisement (NA), tipo 136
  Redirect, tipo 137
 
+*Detalhamento das mensagens:
+    *Router Solicitation (RS), tipo 133
+        - É enviada por um dispositivo para requisitar aos roteadores o envio de 
+        mensagens Router Advertisement, sua importância provém da necessidade da 
+        descoberta imediata, por um nó, de informações (como rotas, MTU, Hop Limit 
+        e outras) que estão dispostas no roteador. De tempos em tempos o roteador 
+        envia a todos os nós do enlace esses dados, contudo, esse intervalo pode 
+        ser muito longo impedindo o nó de estabelecer alguma comunicação, portanto, 
+        essa mensagem serve para solicitar ao roteador que responda rapidamente o 
+        pedido do dispositivo, geralmente essa situação acontece quando uma máquina 
+        tenta se conectar ou reconectar a rede (ou seja, no momento em que ele 
+        habilita sua interface), e por isso desconhece qualquer detalhe das 
+        configurações do enlace e da internet
 
+    *Router Advertisement (RA), tipo 134
+        - É enviada periodicamente ou em resposta a mensagem Router Solicitation 
+        por um roteador para anunciar sua presença no enlace, sua importância 
+        provém do caráter informativo dessa mensagem, além de anunciar o roteador 
+        como alternativa para rota de tráfego no enlace, ela também transmiti dados 
+        como prefixos, MTU, DNS e outros, para que os nós realizem autoconfiguração, 
+        esses dados só estão persistidos nos roteadores, seja por configuração 
+        manual ou automática, e eles são os responsáveis por dissiminar aos demais 
+        nós do link
 
+    *Neighbor Solicitation (NS), tipo 135
+        - É enviada por um dispositivo  para requisitar a um determinado vizinho 
+        o envio de mensagens Neighbor Advertisement, por causa dessa funcionalidade 
+        ela é utilizada para suprir três necessidades básicas de comunicação em 
+        redes IPv6, *a primeira consiste na descoberta de um endereço físico 
+        associado a um endereço lógico, nesse caso a resposta ao Neighbor Solicitation 
+        conterá o endereço requisitado, no IPv4, o Address Resolution Protocol realiza 
+        a mesma função, *a segunda consiste no teste de acessibilidade de nós vizinhos 
+        no enlace, nesse caso, a mensagem pode ser enviada para se verificar se determinado 
+        endereço lógico existe ou se ainda está respondendo, *a terceira é sobre a detecção 
+        de endereços IPv6 duplicados na vizinhança, para isso, a mensagem serve como uma 
+        pergunta, se naquele momento existe alguma interface configurada com um determinado 
+        endereço lógico antes de assumi-lo como dono
 
+    *Neighbor Advertisement (NA), tipo 136
+        - É enviada em resposta a uma mensagem Neighbor Solicitation ou espontaneamente para 
+        anunciar a mudança de alguma característica do dispositivo  na rede de maneira rápida, 
+        igual a mensagem Neighbor Solicitation, essa mensagem também é utilizada para auxiliar 
+        nas funcionalidades de resolução de endereço físicos, no teste de acessibilidade 
+        de um nó vizinho e na detecção de endereços duplicados
 
-
-
-
-
-
+    *Redirect, tipo 137
+        - É enviada por roteadores para informa ao nó solicitante de uma comunicação, uma melhor 
+        opção de caminho para ser utilizada, em outras palavras, ele envia o endereço do próximo 
+        salto que deve  ser usado para encaminhar pacotes quando se comunicar com aquele 
+        determinado destino
 
 
 
