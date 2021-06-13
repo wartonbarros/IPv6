@@ -209,7 +209,33 @@ a realização de suas tarefas, para isso foram reservadas 5 tipos de mensagens
         determinado destino
 
 
-
+*As mensagens NDP podem incluir opções para auxiliar nas funcionalidades, todas as opções possuem
+uma estrutura básica de dois campos de 8 bits, o Type e o Length. O primeiro serve para indicar 
+qual é a opção escolhida que está sendo transmitida, já o segundo serve para demarcar o tamanho
+utilizado no campo opcional, as opções mais utilizadas nas funcionalidades básicas do IPv6 são:
+    ºSource Link Layer Address: sua função é carregar o endereço físico do nó de origem da mensagem, 
+    ele é utilizado nas seguintes mensagens, Neighbor Solicitation, Router Solicitation e Router 
+    Advertisement 
+    
+    ºTarget Link Layer Address: sua função é carregar o endereço físico do nó de destino questionado 
+    por outra mensagem, ele é utilizado nas seguintes mensagens, Neighbor Advertisement e Redirect
+    
+    ºPrefix Information: sua função é prover ao nó solicitante um prefixo de rede que pode ser utilizado 
+    tanto para se autoconfigurar como para se identificar se um endereço de destino em um pacote 
+    pertence ao enlace, ele é utilizado nas mensagens Router Advertisement e deve ser ignorado em outras 
+    mensagens 
+    
+    ºRedirect Header: sua função é enviar parte ou totalidade da mensagem original que deverá ser 
+    redirecionada pelo nó de origem a outro nó, ele é utilizado nas mensagens Redirect e deve ser 
+    ignorado em outras mensagens
+    
+    ºMTU: sua função  é transmitir a todos os nós do enlace o mesmo tamanho de MTU válido
+    
+    ºRecursive DNS Server Option (RDNSS): sua função é transmitir um ou mais endereços lógicos 
+    de servidores recursivos de DNS, ele é utilizado nas mensagens Router Advertisement e deve 
+    ser ignorado em outras mensagens 
+    
+    
 
 
 
