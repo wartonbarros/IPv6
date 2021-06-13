@@ -110,6 +110,19 @@ Indica as opções do pacote ICMPv6 >
 
 
 
+*Atua sobre dois aspectos primordiais, a autoconfiguração de nós, e a 
+transmissão de pacotes.
+
+*No caso da autoconfiguração de nós, o protocolo fornece suporte para a 
+realização de três funcionalidades:
+    ºParameter Discovery: atua na descoberta por um nó de informações sobre o enlace 
+     (como MTU) e sobre a internet (como hip limit)
+
+    ºAddress Autoconfiguration:  trabalha com a autoconfiguração stateless de endereços 
+     nas interfaces de um nó
+
+    ºDuplicate Address Detection: utilizado para descobrir se o endereço que se deseja atribuir 
+     a uma interface já está sendo utilizado por um outro nó na rede
 
 
 
@@ -117,6 +130,19 @@ Indica as opções do pacote ICMPv6 >
 
 
 
+
+
+
+
+
+Mensagens:
+*O NDP foi construído com base nas mensagens do protocolo ICMPv6 para
+a realização de suas tarefas, para isso foram reservadas 5 tipos de mensagens
+ Router solicitation (RS), tipo 133
+ Router Advertisement (RA), tipo 134
+ Neighbor Solicitation (NS), tipo 135
+ Neighbor Advertisement (NA), tipo 136
+ Redirect, tipo 137
 
 
 
