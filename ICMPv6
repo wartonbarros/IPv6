@@ -43,8 +43,35 @@ bloquear funções extremamente básicas como a descoberta de vizinhos
     
     ºAutoconfiguração Stateless, que permite a aquisição de endereços 
     globais sem o uso do DHCP
+        
+*O pacote ICMPv6 é identificado no cabeçalho IPv6 pelo valor 58 no campo
+Next Header
+
+*Possui um cabeçalho com quatro campos básicos:
+    ºO campo Type de 8 bits: especifica o tipo de mensagem e assim determina 
+    o formato do corpo da mensagem (campo data). Um exemplo do seu uso é o 
+    valor 2 que representa uma mensagem "Packet Too Big".
     
+    ºO campo Code de 8 bits: apresenta algumas informações adicionais sobre
+    o motivo da mensagem. Um exemplo do seu uso seria para indicar a razão da 
+    falha de conexão entre dois dispositivos, numa mensagem "Destination Unreachable". 
+    Nesse caso o valor 0 representaria que não há rota para o destino
     
+    ºO campo Checksum de 16 bits: é utilizado para detectar dados corrompidos no cabeçalho
+    ICMPv6 e em parte do cabeçalho IPv6
     
+    ºO campo Data: mostra as informações relativas ao tipo da mensagem,
+    podendo ser desde diagnósticos de rede até erros. Seu tamanho é variável
+    de acordo com a mensagem, desde que não exceda o tamanho de MTU
+    mínimo do IPv6 (1280 bits)
     
-    
+*É dividido em duas grandes classes por causa da quantidade de mensagens 
+possíveis, uma com mensagens de erro, outra com 
+mensagens de informação 
+
+
+
+
+
+
+
