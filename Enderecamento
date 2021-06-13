@@ -1,0 +1,30 @@
+    No IPv4 o campo de cabeçalho reservado para o endereçamento possui 32 bits, o que 
+possibilita no máximo 4.294.967.296 endereços
+
+    No IPv4 o campo de cabeçalho reservado para o endereçamento possui 128 bits, o que 
+torna possível 340.282.366.920.938.463.463.374.607.431.768.211.456 endereços
+
+    No IPv4 os 32 bits são dividios em quatro octetos de 8 bits, e convertidos para modo 
+decimal, separando os quatro campos com o caractere "." 
+    
+    No IPv6 os 128 bits são dividios em 8 conjuntos de 16 bits, chamados hexadecatetos, 
+e convertidos para números hexadecimais, separando os 8 campos pelo caractere ":"    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
