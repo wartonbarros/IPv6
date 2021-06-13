@@ -69,9 +69,56 @@ Next Header
 possíveis, uma com mensagens de erro, outra com 
 mensagens de informação 
 
+Mensagens de erro:
+    valor = 1
+    nome = Destination Unreachable
+    descrição = Indica falhas na entrega do pacote
+    Valores + descrição:
+        0 > sem rota pra o destino
+        1 > comunicação com o destino proibida administrativamente
+        2 > além do escopo do endereço de origem
+        3 > esdereço não acessível
+        4 > porta não acessível
+        5 > endereço de origem falho na política de ingressão ou egressão
+        6 > rota para o destino rejeitada
+        7 > erro no cabeçalho de roteamento de origem
+
+    valor = 2
+    nome = Packet Too Big
+    descrição = Indica que o tamanho do pacote ultrapassou o limite do enlace
+    Valor:
+        0 > -
+        
+    valor = 3
+    nome = Time Exceded
+    descrição = Indica que o limite de encaminhamento ou tempo de remotagem do pacote foi excedido
+    Valores + descrição:
+        0 > limite de encaminhamento excedido no tráfego
+        1 > tempo de remotagem de fragmento excedido
+        
+    valor = 4
+    nome = Parameter Problem
+    descrição = Indica erro em algum campo do cabeçalho IPv6 ou que o tipo indicado no próximo
+    cabeçalho não foi reconhecido
+    Valores + descrição:
+        0 > campo errado do cabeçalho encontrado
+        1 > encontrado um tipo Next Header não reconhecido
+        2 > encontrado um IPv6 option não reconhecido
+        
+    valor = 127
+    nome = -
+    descrição = reservado para expansão das mensagens de erro 
+    
+    valor = 255
+    nome = -
+    descrição = reservado para expansão das mensgens de erro
 
 
 
-
-
+Mensagens de informação:
+    valor = 
+    nome = 
+    descrição = 
+    Valores + descrição 
+    
 
