@@ -83,11 +83,13 @@ Mensagens de erro:
         6 > rota para o destino rejeitada
         7 > erro no cabeçalho de roteamento de origem
 
+
     valor = 2
     nome = Packet Too Big
     descrição = Indica que o tamanho do pacote ultrapassou o limite do enlace
     Valor:
         0 > -
+        
         
     valor = 3
     nome = Time Exceded
@@ -95,6 +97,7 @@ Mensagens de erro:
     Valores + descrição:
         0 > limite de encaminhamento excedido no tráfego
         1 > tempo de remotagem de fragmento excedido
+        
         
     valor = 4
     nome = Parameter Problem
@@ -105,9 +108,11 @@ Mensagens de erro:
         1 > encontrado um tipo Next Header não reconhecido
         2 > encontrado um IPv6 option não reconhecido
         
+        
     valor = 127
     nome = -
     descrição = reservado para expansão das mensagens de erro 
+    
     
     valor = 255
     nome = -
@@ -116,9 +121,135 @@ Mensagens de erro:
 
 
 Mensagens de informação:
-    valor = 
-    nome = 
-    descrição = 
-    Valores + descrição 
+    valor = 128
+    nome = Echo Request
+    valor = 129
+    nome = Echo Reply
+    descrição = utilizadas no comando ping
+    Valores + descrição:
+        0 > -
+        
+        
+    valor = 130 
+    nome = Multicast Listener Query
+    valor = 131
+    nome = Multicast Listener Report
+    valor = 132
+    nome = Multicast Listener Done
+    descrição = utilizadas no gerenciamento de grupos multicast
+    Valores + descrição:
+        0 > -     
     
+    
+    valor = 133
+    nome = Router Solicitation
+    valor = 134
+    nome = Router Advertisement
+    valor = 135
+    nome = Neighbor Solicitation
+    valor = 136
+    nome = Neighbor Advertisement
+    valor = 137
+    nome = Redirect Message
+    descrição = utilizadas com o protocolo Descoberta de Vizinhança
+    Valores + descrição:
+        0 > -
+        
+        
+    valor = 138
+    nome = Router Renumbering
+    descrição = utilizada no mecanismo de re-endereçamento de roteadores
+    Valores + descrição
+        0 > Comando renuneração de roteadores
+        1 > Resultado de renumeração de roteadores
+        2 > Reseta o número de sequência
+    
+    
+    valor = 139 
+    nome = ICMP Node Information Query 
+    valor = 140 
+    nome = ICMP Node Information Response
+    descrição = Utilizadas para descobrir informações sobre nomes e endereços, são atualmente 
+    limitadas a ferramentas de diagnóstico e gestão de rede
+    Valores + descrição 139:
+        0 > Transmiti um campo que contém um endereço IPv6 que é o objetivo da query
+        1 > Transmiti um campo que contém um nome que é o objetivo da query 
+        2 > Transmiti um campo que contém um endereço IPv4 que é o objetivo da query
+    Valores + descrição 140:
+        0 > Uma resposta realizada corretamente 
+        1 > O dispositivo responsável por fornecer a resposta se recusou a responder
+        2 > O Qtype da query é desconhecido pelo dispositivo que deve fornecer a resposta
+
+
+    valor = 141
+    nome = Inverse ND solicitation Message
+    valor = 142 
+    nome = Inverse ND Advertisement Message
+    descrição = Utilizadas em uma extensão do protocolo de descoberta de vizinhança
+    Valores + descrição:
+        0 > -
+
+
+    valor = 143
+    nome = Version2 Multicast listener Report
+    descrição = Utilizada no gerenciamento de grupos multicast
+    Valores + descrição:
+        0 > -
+        
+        
+    valor = 144
+    nome = Ha Address Discovery Request Message
+    valor = 145
+    nome = HA Address Discovery Reply Message
+    valor = 146
+    nome = Mobile Prefix Solicitation
+    valor = 147
+    nome = Mobile Prefix Advertisement
+    descrição = Utilizadas no mecanismo de mobilidade IPv6
+    Valores + descrição:
+        0 > -
+        
+        
+    valor = 148
+    nome = Certification Path Solicitation Message
+    valor = 149
+    nome = Certification Path Advertisement Message
+    descrição = Utilizadas pelo protocolo SEND
+    Valores + descrição:
+        0 > -
+        
+        
+    valor = 150 
+    nome = -
+    descrição = Utilizada experimentalmente com protocolos de mobilidade Seamoby
+    Valores + descrição:
+        0 > -
+        
+        
+    valor = 151
+    nome = Multicast Router Advertisement
+    valor = 152 
+    nome = Multicast Router Solicitation 
+    valor = 153 
+    nome = Multicast Router Termination
+    descrição = Utilizada pelo mecanismo multicast router discovery
+    Valores + descrição:
+        0 > -
+        
+        
+    valor = 154
+    nome = FMIPv6
+    descrição = Utilizada pelo protocolo de mobilidade FAST Handovers
+    Valoes + descrição:
+        0 > -
+
+
+
+
+
+
+
+
+
+
 
