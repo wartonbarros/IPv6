@@ -1,10 +1,117 @@
 Endereços Unicast
+    São utilizados para a comunicação entre dois nós, Ex: telefones, 
+    VoiPv6, computadores numa rede privada etc, sua estrutura foi 
+    definida para permitir agregações com prefixos de tamanho flexível, 
+    similar ao CIDR do IPv4
     
+    Os tipos de endereços unicast IPv6 são: Global Unicast, Unique-local, 
+    e Link-Local, existem também alguns tipos para usos especiais, como 
+    endereços IPv4 mapeados em IPv6, endereço de loopback e o endereço 
+    não-especificado, entre outros
+        ºGlobal Unicast
+            equivalente aos endereços públicos IPv4, o endereço global 
+            unicast é globalmente roteável e acessível na internet IPv6, 
+            ele é constituído por três partes: o prefixo de roteamento 
+            global, utilizado para identificar o tamanho do bloco atribuído 
+            a uma rede; a identificação da sub-rede, utilizada para identificar 
+            enlace em uma rede; e a identificação da interface, que deve identificar 
+            de forma única uma interface dentro de um enlace.
+            Sua estrutura foi projetada para utilizar os 64 bits mais a esquerda 
+            para identificação de rede e os 64 bits mais a direita para a identificação 
+            de interface.
+            Portanto, exceto casos específicos, todas as sub-redes em IPv6 tem o mesmo 
+            tamanho de prefixo, 64 bits (/64), o que possibilita 2^64 = 18.446.744.073.709.551.616 
+            dispositivos por sub-rede. 
+            Atualmente, está reservada para atribuição de endereços a faixa 2000::/3 (001), que 
+            corresponde aos endereços de 2000:: a 3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff isto 
+            representa 13% do total de endereços possíveis com IPv6, o que nos permite criar 
+            2^(64-3) = 2.305.843.009.213.693.952 (2,3x1018) sub-redes (/64) diferentes 
+            ou 2^(48−3) = 35.184.372.088.832 (3,5x1013) redes /48
+            
+        ºLink Local
+            podendo ser usado apenas no enlace específico onde a interface está conectada, 
+            o endereço link local é atribuído automaticamente utilizando o prefixo FE80::/64.
+            Os 64 bits reservados para a identificação da interface são configurados utilizando 
+            o formato IEEE EUI-64. Vale ressaltar que os roteadores não devem encaminhar para 
+            outros enlaces, pacotes que possuam como origem ou destino um endereço link-local
+        
+        ºUnique Local Address (ULA)
+            endereço com grande probabilidade de ser globalmente único, utilizado apenas para 
+            comunicações locais, geralmente dentro de um mesmo enlace ou conjunto de enlaces.
+            Um endereço ULA não deve ser roteável na Internet global, um endereço ULA, criado 
+            utilizando um ID global e alocado pseudo-randomicamente, é composto das seguintes 
+            partes:
+                ºPrefixo: FC00::/7
+                
+                ºFlag Local (L): se o valor for 1 (FD) o prefixo é atribuído localmente, se o 
+                valor for 0 (FC), o prefixo deve ser atribuído por uma organização central 
+                (ainda a definir)
+                
+                ºIdentificador Global: identificador de 40 bits usado para criar um prefixo 
+                globalmente único
+                
+                ºIdentificador da Interface: identificador da interface de 64 bits
+            
+            Deste modo, a estrutura de um endereço ULA é FDUU:UUUU:UUUU:: onde U são os bits 
+            do identificador único, gerado aleatoriamente por um algoritmo específico.
+            Sua utilização permite que qualquer enlace possua um prefixo /48 privado e único
+            globalmente. Deste modo, caso duas redes, de empresas distintas por exemplo, sejam 
+            interconectada, provalvemente não haverá conflito de endereços ou necessidade de 
+            renumerar a interface que o esteja usando. Além disso, o endereço ULA é independente 
+            de provedor, podendo ser utilizado na comunicação dentro do enlace mesmo que não haja 
+            uma conexão com a internet. Outra vantagem, é que seu prefixo pode facilmente bloqueado, 
+            e caso um endereço ULA seja anunciado acidentalmente para fora do enlace, através de um 
+            roteador ou via DNS, não haverá conflito com outros endereços
+    
+    Identificadores de interface
+        Os identificadores de interface (IID), utilizados para distinguir as interfaces dentro de um 
+        enlace devem ser únicos dentro do mesmo prefixo de sub-rede. O mesmo IID pode ser usado em 
+        múltiplas interfaces em um único nó, porém, elas devem estar associadas a diferentes sub-redes
+        
+        Normalmente utiliza-se um IID de 64 bits, que pode ser obtido de diversas formas, ele pode ser 
+        configurado manualmente, a partir do mecanismo de autoconfiguração stateless do IPv6, a partir de 
+        servidores DHCPv6 (stateful), ou formados a partir de uma chave pública (CGA). 
+        
+        Embora eles possam ser gerados randomicamente e de forma temporária, recomenda-se que o IID 
+        seja contruído baseado no endreço MAC da interface, no formato EUI-64
+        
+        Um IID baseado no formato EUI-64 é criado da seguinte forma:
+            ºCaso a interface possua um endereço MAC de 64 bits (padrão EUI-64), basta complementar o 
+            sétimo bit mais a esquerda (chamado de bit U/L - Universal/Local) do endereço MAC, isto é, 
+            se for 1, será alterado para 0; se for 0, será alterado para 1. Caso a interface utilize um 
+            endereço MAC de 48 bits (padrão IEEE 802), primeiro adiciona-se os dígitos hexadecimais FF-FE 
+            entre o terceiro e quarto Byte do endereço MAC (transformando no padrão EUI-64), e em seguida 
+            o bit U/L é complementado, por exemplo:
+                ºSe o endereço MAC da interface for:
+                    º48-1E-C9-21-85-0C
+                    ºadiciona-se os dígitos FF-FE na metade do endereço
+                    º48-1E-C9-FF-FE-21-85-0C
+                    ºcomplementa-se o bit U/L
+                    º48 = 01001000
+                    º01001000 > 01001010
+                    º01001010 = 4A
+                    ºIID = 4A-1E-C9-FF-FE-21-85-0C
 
-
-
-
-
+        Um endereço link local atribuído a essa interface seria FE80::4A1E:C9FF:FE21:850C
+        
+    Endereços especiais
+        Existem alguns endereços IPv6 especiais utilizados para fins específicos
+            ºEndereço Não-Especificado (Unspecified): é representado pelo endereço 0:0:0:0:0:0:0:0
+            ou ::0 (equivalente ao endereço IPv5 0.0.0.0). Ele nunca deve ser atribuído a nenhum nó 
+            indicando apenas a ausência de endereço. Ele pode, por exemplo, ser utilizado no campo 
+            Endereço de Origem de um pacote IPv6 enviado por um host durante o processo de inicialização, 
+            antes qeu este tenha seu endereço exclusivo determinado. O endereço unspecified não deve 
+            ser utilizado como destino de pacotes IPv6
+            
+            ºEndereço Loopback: representado pelo endereço unicast 0:0:0:0:0:0:0:1 ou ::1 (equivalente 
+            ao endereço IPv4 loopback 127.0.0.1). Este endereço é utilizado para referenciar a própria 
+            máquina, sendo muito utilizado para testes internos. Este tipo de endereço não deve ser 
+            atribuído a nenhuma interface física, nem usado como endereço de origem em pacotes IPv6 
+            enviados para outros nós. Além disso, um pacote IPv6 com um endereço loopback como destino 
+            não pode ser enviado por um roteador IPv6, e caso um pacote recebido em uma interface possua 
+            um endereço loopback como destino, este deve ser descartado
+            
+            º
 
 
 
