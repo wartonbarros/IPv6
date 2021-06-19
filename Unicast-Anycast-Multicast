@@ -111,26 +111,63 @@ Endereços Unicast
             não pode ser enviado por um roteador IPv6, e caso um pacote recebido em uma interface possua 
             um endereço loopback como destino, este deve ser descartado
             
-            º
+            ºEndereços IPv4 Mapeados: representados por 0:0:0:0:0:ffff:wcyz ou ::FFFF:wxyz, é usado 
+            para mapear um endereço IPv4 em um endereço IPv6 de 128 bits, onde wxyz representa os 32 
+            bits do endereço IPv4 usando digitos decimais. É aplicado em técnicas de transição para nós 
+            IPv6 e IPv4 se comunicarem. Ex. ::FFFF:192.168.100.1
+            
+        Algumas faixas de endereços também são reservados para uso específicos:
+            º2002::/16 - prefixo utilizado no mecanismo de transição 6to4;
+            º2001:0000::/32 - prefixo utilizado no mecanismo de transição TEREDO;
+            º2001:db8::/32 - prefixo utilizado para representar endereços IPv6 em textos e documentações
+
+        Outros endereços usados no início do desemvolvimento IPv6 estão obsoletos e não devem ser mais 
+        utilizados:
+            ºFEC0::/10 - prefixo utilizado pelos endereços do tipo site local, desenvolvidos para serem 
+            utilizados dentro de uma rede específica sem a necessidade de um prefixo global, equivalente 
+            aos endereços privados do IPv4. Sua utilização foi substituída pelos endereços ULA;
+            º::wxyz - utilizado para representar o endereço IPv4-compatível. Sua função é a mesma do 
+            endereço IPv4-mapeado, tornando-se obsoleto por desuso;
+            º3FFE::/16 - prefixo utilizado para representar os endereços da rede de teste 6Bone. Criada 
+            para ajudar na implantação do IPv6, esta rede foi desativada em 6 de Junho de 2006
 
 
 
 
 
+Endereços Anycast
+    Um endereço IPv6 Anycast é utilizado para identificar um grupo de interfaces, porém, com a 
+    propriedade de que um pacote enviado a um endereço anycast é encaminhado apenas a interface 
+    do grupo mais próxima da origem do pacote.
+    
+    Os endereço anycast são atribuídos a partir da faixa de endereços unicast e não há diferenças 
+    sintáticas entre eles. Portanto, um endereço unicast atribuído a  mais uma interface 
+    transforma-se em um endereço anycast, devendo-se neste caso, configurar explicitamente os nós 
+    para que sibam que lhes foi atribuído um endereço anycast. Além disso, este endereço deve ser 
+    configurado nos roteadores como uma entrada separada (prefixo /128 - host route).
+
+    Este esquema de endereçamento pode ser utilizado para descobrir serviços na rede, como servidores
+    DNS e proxies HTTP, garantindo a redundância desses serviços. Também pode-se utilizar para fazer 
+    balanceamento de carga em situações onde múltiplos hosts ou roteadores provem o mesmo serviço, 
+    para localizar roteadores que forneçam acesso a uma determinada sub-rede ou para localizar os 
+    Agentes de Origem em redes com suporte a mobilidade IPv6
+
+    Todos os roteadores devem ter suporte ao endereço anycast Subnet-Router. Este tipo de endereço é 
+    formado pelo prefixo da sub-rede e pelo ID preenchido com zeros (ex.: 2001:db8:cafe:dad0::/64). 
+    Um pacote enviado para o endereço Subnet-Router será entregue para o roteador mais próximo da 
+    origem dentro da mesma sub-rede
+    
+    Também foi definido um endereço anycast para ser utilizado no suporte a mobilidade IPv6. Este tipo
+    de endereço é formado pelo prefixo da sub-rede seguido pelo IID dfff:ffff:ffff:fffe (ex.: 
+    2001:db8::dfff:ffff:ffff:fffe). Ele é utilizado pelo nó móvel, quando este precisar localizar um 
+    Agente Origem em sua Rede Original
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+Endereço Multicast
+    
 
 
 
