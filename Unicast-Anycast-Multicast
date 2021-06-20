@@ -238,7 +238,11 @@ Endereço Multicast
         
         FF0X::101           variado     NTP (Network Time protocol)
 
-
+    O endereço multicast solicited-node identifica um grupo multicast que todos os nós passam a fazer 
+    parte assim que um endereço unicast ou anycast lhes é atribuído, um endereço solicited-node é formado
+    agregando-se ao prefixo FF02::1:FF00:0000/104 os 24 bits mais a direita do identificador da interface, 
+    e para cada endereço unicast ou anycast do nó, existe um endereço multicast solicited-node 
+    correspondente
 
 
 
