@@ -256,112 +256,105 @@ Endereço Multicast
     em prefixos unicast e de endereços SSM (source-specifica multicast).
     
     Em endereços baseados no prefixo da rede, a flag P é marcada com o valor 1, neste caso, o uso do 
-    campo escopo não altera, porém, o escopo deste endereço multicast não deve exceder o escopo do prefixo 
-    unicast "carregado" junto a ele. Os 8 bits após o campo escopo, são reservados e devem ser marcados com
-    zeros, na sequência, há 8 bits que especificam o tamanho do prefixo, da rede indicado nos 64 bits que 
-    o seguem, caso o prefixo da rede seja menor que os 64 bits, os bits não utilizados no campo tamanho 
-    do prefixo, devem ser marcados com zero, o campo identificador do grupo utiliza os 32 bits restantes, 
-    note que, em um endereço onde a flag P é marcada com o valor 1, a flag T também deve ser marcada com o 
-    valor 1, pois este não representa um endereço definido pela IANA
+    campo escopo não altera, porém, o escopo deste endereço multicast não deve exceder o escopo do 
+    prefixo unicast "carregado" junto a ele. Os 8 bits após o campo escopo, são reservados e devem 
+    ser marcados com zeros, na sequência, há 8 bits que especificam o tamanho do prefixo, da rede 
+    indicado nos 64 bits que o seguem, caso o prefixo da rede seja menor que os 64 bits, os bits 
+    não utilizados no campo tamanho do prefixo, devem ser marcados com zero, o campo identificador 
+    do grupo utiliza os 32 bits restantes, note que, em um endereço onde a flag P é marcada com o 
+    valor 1, a flag T também deve ser marcada com o valor 1, pois este não representa um 
+    endereço definido pela IANA
 
-    No modelo tradicional de multicast, chamado de any-source multicast (ASN), o participante de um grupo 
-    multicast não controla de que fonte deseja receber os dados. Com o SSM, uma interface pode registrar-se 
-    em um grupo multicast e especificar as fontes de dados. O SSM pode ser implementado utilizando o 
-    protocolo MLDv2 (Multicast Listener Discovery version 2). 
+    No modelo tradicional de multicast, chamado de any-source multicast (ASN), o participante de 
+    um grupo multicast não controla de que fonte deseja receber os dados. Com o SSM, uma interface 
+    pode registrar-se em um grupo multicast e especificar as fontes de dados. O SSM pode ser 
+    implementado utilizando o protocolo MLDv2 (Multicast Listener Discovery version 2). 
 
-    Para um endereço SSM, as flags P e T são marcadas com o valor 1. Os campos tamanho do prefixo e o prefixo
-    da rede são marcados com zeros, chegando ao prefixo FF3X::/32, onde X é o valor do escopo. O campo Endereço 
-    de Origem do cabeçalho IPv6 identifica o dono do endereço multicast. Todo endereço SSM tem o formato 
-    FF3X::/96.
+    Para um endereço SSM, as flags P e T são marcadas com o valor 1. Os campos tamanho do prefixo e 
+    o prefixoda rede são marcados com zeros, chegando ao prefixo FF3X::/32, onde X é o valor do escopo. 
+    O campo Endereço de Origem do cabeçalho IPv6 identifica o dono do endereço multicast. 
+    Todo endereço SSM tem o formato FF3X::/96.
     
+    Também é importante destacar algumas características relacionadas ao endereço apresentadas 
+    pela nova arquitetura do protocolo IPv6. Assim como no IPv4, os endereço IPv6 são atribuídos as 
+    interfaces físicas, e não aos nós, de modo que cada interface precisa de pelo menos um endereço 
+    unicast. No entanto, é possível a atribuir a uma única interface múltiplos endereço IPv6, 
+    independentemente do tipo (unicast , multicast ou anycast) ou sub-tipo (loopback, link local, 
+    6to4, etc.) deste modo um nó pode ser identificado através de qualquer endereço das suas 
+    interfaces, e com isso, torna-se necessário escolher entre seus múltiplos endereços qual 
+    utilizará como endereço de origem e destino ao estabelcer uma conexão 
+    
+    Para resolver essa questão, foram definidos dois algoritmos, um para selecionar o endereço de 
+    origem e outro para o de destino. Esses algoritmos, que devem ser implementados por todos os nós 
+    IPv6, especificam o comportamente padrão desses nós, porém não substituem as escolhas feitas por 
+    aplicativos ou protocolos da camada superior
+    
+    Entre as regras mais importantes destacam-se:
+        ºpares de endereços do mesmo escopo ou tipo têm preferência;
+
+        ºo menor escopo para endereço de destino tem preferência (utiliza-se o menor escopo possível)
+
+        ºendereços cujo tempo de vida não expirou tem preferência sobre endereços com tempo de vida 
+        expirado;
+
+        ºendereços com técnicas de transição (ISATAP, 6to4, etc.) não podem ser utilizados se um 
+        endereço IPv6 nativo estiver disponível;
+
+        ºse todos os critérios forem similares, pares de endereços com maior prefixo comum terão 
+        preferência;
+
+        ºpara endereços de origem, endereços globais terão preferência sobre endereços temporários;
+
+        ºem um Nó Móvel, o Endereço de Origem tem preferência sobre um Endereço Remoto
+    
+    Estas regras devem ser utilizadas quando não houver nenhuma outra especificação, as especificações 
+    também permitem a configuração de políticas que possam substituir esses padrões de preferência 
+    com combinações entre endereços de origem e destino
+
+
+
+
+
+Políticas de alocação e designação
+    Na hierarquia das políticas de atribuição, alocação e designação de endereços, cada RIR recebe da 
+    IANA um bloco /12 IPv6
+    
+    O LACNIC trabalha com o bloco 2800::/12 alocado em 03/10/2006. O NIC.br, por usa vez, usa o bloco 
+    2804::/16 (que é parte desse bloco do LACNIC).
+    
+    Antes da alocação dos /12 para os RIRs houve também algumas alocações menores. O LACNIC, por exemplo 
+    recebeu em 01/11/2002 o bloco 2001:1200::23, e depois o bloco 2800:0000::/23, em 17/11/2005 (este 
+    último incorporado posteriormente ao 2800::/12). O NIC.br trabalha também com blocos menores, 
+    provenientes dessas alocações antigas, o 2001:1280::/25 e o 2801:0080::/26
+    
+    Ou seja: - blocos do LACNIC: 2800::/12 e 2001:1200::/23 - blocos do NIC.br: 2804::/16, 2801:0080::/26 
+    e 2001:1280::/25 (os blocos do NIC.br são subconjuntos dos blocos do LACNIC).
+    
+    A alocação mínima para ISPs é um bloco /32, no entanto, alocações maiores podem ser feitas mediante 
+    apresentação de justificativa de utilização. Um aspecto importante que merece destaque é que diferente 
+    do IPv4, com IPv6 a utilização é medida em relação ao número de designações de blocos de endereços 
+    para usuários finais, e não em relação ao número de endereços designados aos usuários finais. 
+
+Recomendações do NIC.br
+    O NIC.br recomenda utilizar:
+        º/64 a /56 para usuários domésticos: para usuários móveis pode-se utilizar /64, pois normalmente 
+        apenas uma rede é suficiente, para usuários residênciais recomenda-se redes maiores, se o 
+        provedor optar por, num primeiro momento, oferecer apenas /64 para usuários residênciais, ainda 
+        assim recomenda-se que no plano de numeração se reserve um /56.
         
-    
+        º/48 para usuários corporativos: empresas muito grandes podem receber mais de um bloco /48.
+        
+    Para planejar a rede é preciso considerar que para cada rede física ou VLAN com IPv6 é preciso 
+    reservar um /64. Esse é o tamanho padrão e algumas funcionalidades, como autoconfiguração depende 
+    dele. É preciso considerar também a necessidade de expansão futura. assim como a necessidade de 
+    agragação nos protocolos de roteamento. 
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Transcrito de NIC.br em: http://ipv6.br/post/enderecamento/
 
 
 
