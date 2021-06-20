@@ -242,11 +242,40 @@ Endereço Multicast
     parte assim que um endereço unicast ou anycast lhes é atribuído, um endereço solicited-node é formado
     agregando-se ao prefixo FF02::1:FF00:0000/104 os 24 bits mais a direita do identificador da interface, 
     e para cada endereço unicast ou anycast do nó, existe um endereço multicast solicited-node 
-    correspondente
+    correspondente.
+    
+    Em redes IPv6, o endereço solicited-node é utilizado pelo protocolo de Descoberta de Vizinhaça para 
+    resolver o endereço MAC de uma interface. Para isso, envia-se uma mensagem Neighbor Solicitation para 
+    o endereço solicited-node. Com isso, apenas as interfaces registradas neste grupo examinam o pacote. 
+    Em uma rede IPv4, para determinar o endereço MAC de uma interface, envia-se uma mensagem ARP Request 
+    para o endereço broadcast da camada de enlace, de modo que todas as interfaces do enlace examinham a 
+    mensagem.
+    
+    Com o intuito de reduzir o número de protocolos necessários para a alocação de endereços multicast, 
+    foi definido um formato estendido de endereço multicast, que permite a alocação de endereços baseados 
+    em prefixos unicast e de endereços SSM (source-specifica multicast).
+    
+    Em endereços baseados no prefixo da rede, a flag P é marcada com o valor 1, neste caso, o uso do 
+    campo escopo não altera, porém, o escopo deste endereço multicast não deve exceder o escopo do prefixo 
+    unicast "carregado" junto a ele. Os 8 bits após o campo escopo, são reservados e devem ser marcados com
+    zeros, na sequência, há 8 bits que especificam o tamanho do prefixo, da rede indicado nos 64 bits que 
+    o seguem, caso o prefixo da rede seja menor que os 64 bits, os bits não utilizados no campo tamanho 
+    do prefixo, devem ser marcados com zero, o campo identificador do grupo utiliza os 32 bits restantes, 
+    note que, em um endereço onde a flag P é marcada com o valor 1, a flag T também deve ser marcada com o 
+    valor 1, pois este não representa um endereço definido pela IANA
 
+    No modelo tradicional de multicast, chamado de any-source multicast (ASN), o participante de um grupo 
+    multicast não controla de que fonte deseja receber os dados. Com o SSM, uma interface pode registrar-se 
+    em um grupo multicast e especificar as fontes de dados. O SSM pode ser implementado utilizando o 
+    protocolo MLDv2 (Multicast Listener Discovery version 2). 
 
-
-
+    Para um endereço SSM, as flags P e T são marcadas com o valor 1. Os campos tamanho do prefixo e o prefixo
+    da rede são marcados com zeros, chegando ao prefixo FF3X::/32, onde X é o valor do escopo. O campo Endereço 
+    de Origem do cabeçalho IPv6 identifica o dono do endereço multicast. Todo endereço SSM tem o formato 
+    FF3X::/96.
+    
+        
+    
 
 
 
