@@ -167,13 +167,76 @@ Endereços Anycast
 
 
 Endereço Multicast
+    Endereços multicast são utilizados para identificar grupos de interfaces, sendo que cada interface 
+    pode pertencer a mais de um grupo. Os pacotes enviados para esses endereços são entregues a todas 
+    as interfaces que compõe o grupo.
     
+    No IPv4, o suporte a multicast é opcional, já que foi introduzido apenas como uma extensão ao 
+    protocolo. Entretando, no IPv6 é requerido que todos os nós suportem multicast, visto que muitas 
+    funcionalidades da nova versão do protocolo IP utilizam esse tipo de endereço.
+    
+    Seu funcionamento é similar ao broadcast, dado que um único pacote é enviado a vários hosts, 
+    diferenciando-se apenas pelo fato de que no broadcast o pacote é enviado a todos os hosts da rede, 
+    sem exceção, enquanto no multicast apenas um grupo de hosts receberá o pacote.
+    
+    Deste modo, a possibilidade de transportar apenas uma cópia dos dados a todos os elementos do grupo, 
+    a partir de uma árvore de disribuição, para reduzir a utilização de recurso de uma rede, bem como 
+    otimizar a entrega dos dados aos hosts receptores. Aplicações como videoconferência, distribuição 
+    de vídeo sob demanda, atualizações de softwares e jogos on-line, são exemplos de serviços que vem 
+    ganhando notoriedade e podem utilizar as vantagens apresentadas pelo multicast.
 
+    Os endereços multicast não devem ser utilizados como endereço de origem de um pacote. Esses endereços 
+    derivam do bloco FF00::/8, onde o prefixo FF, que identifica um endereço multicast, é precedido por 
+    quatro bits, que representam quatro flags, e um valor de quatro bits que define o escopo do grupo 
+    multicast. Os 112 bits restantes são utilizados para identificar o grupo multicast.
 
+    As flags são definidas da seguinte forma:
 
-
-
-
+        O primeiro bit mais a esquerda é reservado e deve ser marcado com 0;
+            ºFlag R: se o valor for 1, indica que o endereço multicast "carrega" o endereço de um Ponto 
+            de Encontro (Rendezvous Point). se o valor for 0, indica que não há um endereço de Ponto de 
+            Encontro embutido 
+            ºFlag P: se o valor for 1, indica que o endereço multicast é baseado em um prefixo de rede, 
+            se o valor for 0, indica que o endereço não é baseado em um prefixo de rede 
+            ºFlag T: se o valor for 0, indica que o endereço multicast é permanente, ou seja, é atribuído 
+            pela IANA, se o valor for 1, indica que o endereço multicast não é permanente, ou seja, 
+            é atribuído dinamicamente.
+        
+        Os quatro bits que representam o escopo do endereço multicast, são utilizados para delimitar 
+        a área de abrangência de um grupo multicast, os valores atribuídos a esse campo 
+        são o seguinte:
+            º 1 - abrange apenas a interface local;
+            º 2 - abrange os nós de um enlace;
+            º 3 - abrange os nós de uma sub-rede;
+            º 4 - abrange a menor área que pode ser configurada manualmente;
+            º 5 - abrange os nós de um site;
+            º 8 - abrange vários sites de uma mesma organização;
+            º E - abrange toda a internet;
+            º O, F - reservados;
+            º 6, 7, 9, A, B, C, D - não estão alocados.
+        Deste modo, um roteador ligado ao backbone de internet não encaminhará pacotes com escopo 
+        menor do que 14 (E em hexa), por exemplo, no IPv4, o escopo de um grupo multicast é 
+        especificado através do campo TTL do cabeçalho. 
+        A lista abaixo representa alguns endereços multicast permanentes:
+        
+        Endereço            Escopo      Descrição                                                      
+        FF01::1             interface   Todas as interfaces(all-nodes)
+        
+        FF01::2             interface   Todos os roteadores (all-routers)
+        FF02::1             enlace      Todos os nós (all-nodes)
+        FF02::2             enlace      Todos os roteadores (all-routers)
+        FF02::5             enlace      Roteadores OSPF
+        FF02::6             enlace      Roteadores OSPF designados
+        FF02::9             enlace      Roteadores RIP
+        FF02::D             enlace      Roteadores PIM
+        FF02::1:2           enlace      Agentes DHCP
+        FF02::1:FFXX:XXXX   enlace      Solicited-node
+        
+        FF05::2             site        Todos os roteadores (all-routers)
+        FF05::1:3           site        Servidores DHCP em um site
+        FF05::1:4           site        Agentes DHCP em um site
+        
+        FF0X::101           variado     NTP (Network Time protocol)
 
 
 
