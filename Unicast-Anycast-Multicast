@@ -1,4 +1,4 @@
-Endereços Unicast
+ENDEREÇOS UNICAST
     São utilizados para a comunicação entre dois nós, Ex: telefones, 
     VoiPv6, computadores numa rede privada etc, sua estrutura foi 
     definida para permitir agregações com prefixos de tamanho flexível, 
@@ -135,7 +135,7 @@ Endereços Unicast
 
 
 
-Endereços Anycast
+ENDEREÇOS ANYCAST
     Um endereço IPv6 Anycast é utilizado para identificar um grupo de interfaces, porém, com a 
     propriedade de que um pacote enviado a um endereço anycast é encaminhado apenas a interface 
     do grupo mais próxima da origem do pacote.
@@ -166,7 +166,7 @@ Endereços Anycast
 
 
 
-Endereço Multicast
+ENDEREÇOS MULTICAST
     Endereços multicast são utilizados para identificar grupos de interfaces, sendo que cada interface 
     pode pertencer a mais de um grupo. Os pacotes enviados para esses endereços são entregues a todas 
     as interfaces que compõe o grupo.
